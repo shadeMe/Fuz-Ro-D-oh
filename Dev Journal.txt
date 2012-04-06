@@ -1,0 +1,3 @@
+To-Do
+======
+> Add support for variable length substitutions based for response word count

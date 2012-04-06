@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\SKSE\skse\GameAPI.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameFormComponents.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameForms.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameObjects.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GamePathing.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameReferences.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameRTTI.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameSettings.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameTypes.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\Utilities.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="FuzrodohInternals.cpp" />
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="SKSE">
+      <UniqueIdentifier>{a028b4b4-0c48-467b-99cf-74e708318eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{f9464900-c789-40fd-aa40-e7d854d1a3be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{ade7d034-c428-481f-a6be-8b921c8d8fda}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="exports.def">
+      <Filter>SKSE</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SKSE\skse\GameAPI.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameFormComponents.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameForms.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameObjects.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GamePathing.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameReferences.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameRTTI.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameSettings.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameTypes.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\PluginAPI.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\Utilities.h">
+      <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\[Libraries]\SME Sundries\MemoryHandler.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\[Libraries]\SME Sundries\SME_Prefix.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="FuzrodohInternals.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Fuz Ro D%27oh.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
