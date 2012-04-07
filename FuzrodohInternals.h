@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #include "skse/PluginAPI.h"
 #include "skse/skse_version.h"
 #include "skse/GameTypes.h"
@@ -47,10 +45,10 @@ public:
 	class Location
 	{
 		// members
-		///*00*/ void**			vtbl;
+		///*00*/ void**				vtbl;
 		 
 		// methods
-		virtual void*			Dtor(bool FreeMemory = true) = 0;
+		virtual void*				Dtor(bool FreeMemory = true) = 0;
 	};
 
 	// 14
@@ -68,10 +66,10 @@ public:
 	};
 
 	// members
-	///*00*/ void**				vtbl;
+	///*00*/ void**					vtbl;
 
 	// methods
-	virtual void*				Dtor(bool FreeMemory = true) = 0;
+	virtual void*					Dtor(bool FreeMemory = true) = 0;
 };
 STATIC_ASSERT(sizeof(BSResource::Location) == 0x4);
 STATIC_ASSERT(sizeof(BSResource::LooseFileLocation) == 0x14);

@@ -2,22 +2,20 @@
 #include "FuzrodohInternals.h"
 
 IDebugLog				gLog("Fuz Ro D'oh.log");
-
 PluginHandle			g_pluginHandle = kPluginHandle_Invalid;
+static const char*		kShimAssetFilePath = "Data\\Sound\\Voice\\Fuz Ro D'oh\\Stock.wav";
 
-static const char*		kShimAssetFilePath = "Data\\Sound\\Voice\\Fuz Ro D'oh.wav";
-
-_DefineHookHdlr(TESTopicInfoGetAssetPath, 0x0066C178);
-
-void BollocksBollocksBollocks()
-{
-	_MemHdlr(TESTopicInfoGetAssetPath).WriteJump();
-}
+_DefineHookHdlr(TESTopicInfoGetAssetPath, 0x0066C708);
 
 BSIStream* BSIStream::CreateInstance( const char* FilePath, BSResource::Location* ParentLocation /*= NULL*/ )
 {
 	void* Instance = cdeclCall<void*>(0x004017F0, 0x10);		// BSMemory::Allocate, standard bucket
-	return thisCall<BSIStream*>(0x00AED3F0, Instance, FilePath, ParentLocation);
+	return thisCall<BSIStream*>(0x00AF09D0, Instance, FilePath, ParentLocation);
+}
+
+void BollocksBollocksBollocks()
+{
+	_MemHdlr(TESTopicInfoGetAssetPath).WriteJump();
 }
 
 void __stdcall SneakAtackVoicePath(char* VoicePathBuffer)
@@ -46,8 +44,8 @@ void __stdcall SneakAtackVoicePath(char* VoicePathBuffer)
 #define _hhName	TESTopicInfoGetAssetPath
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x0066C17D);
-	_hhSetVar(Call, 0x00A359E0);	// StringCache::Ref::Set()
+	_hhSetVar(Retn, 0x0066C70D);
+	_hhSetVar(Call, 0x00A38CE0);	// StringCache::Ref::Set()
 	__asm
 	{
 		mov		eax, [esp]
