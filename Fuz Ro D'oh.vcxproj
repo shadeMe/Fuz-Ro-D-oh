@@ -87,6 +87,12 @@
     <PostBuildEvent>
       <Message>Installing DLL...</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cscript.exe "BuildIncrement.jse"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Setting build number...</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -120,6 +126,12 @@
     <PostBuildEvent>
       <Message>Installing DLL...</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cscript.exe "BuildIncrement.jse"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Setting build number...</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\common.vcxproj">
@@ -140,7 +152,9 @@
     <ClCompile Include="..\SKSE\skse\GameSettings.cpp" />
     <ClCompile Include="..\SKSE\skse\GameTypes.cpp" />
     <ClCompile Include="..\SKSE\skse\Utilities.cpp" />
+    <ClCompile Include="..\[Libraries]\SME Sundries\INIManager.cpp" />
     <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp" />
+    <ClCompile Include="..\[Libraries]\SME Sundries\StringHelpers.cpp" />
     <ClCompile Include="FuzrodohInternals.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
@@ -156,13 +170,15 @@
     <ClInclude Include="..\SKSE\skse\GameTypes.h" />
     <ClInclude Include="..\SKSE\skse\PluginAPI.h" />
     <ClInclude Include="..\SKSE\skse\Utilities.h" />
+    <ClInclude Include="..\[Libraries]\SME Sundries\INIManager.h" />
     <ClInclude Include="..\[Libraries]\SME Sundries\MemoryHandler.h" />
     <ClInclude Include="..\[Libraries]\SME Sundries\SME_Prefix.h" />
+    <ClInclude Include="..\[Libraries]\SME Sundries\StringHelpers.h" />
     <ClInclude Include="FuzrodohInternals.h" />
-    <ClInclude Include="Resource.h" />
+    <ClInclude Include="VersionInfo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Fuz Ro D%27oh.rc" />
+    <ResourceCompile Include="VersionInfo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

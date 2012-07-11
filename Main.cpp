@@ -1,4 +1,5 @@
 #include "FuzrodohInternals.h"
+#include "VersionInfo.h"
 
 extern "C"
 {
@@ -8,13 +9,13 @@ extern "C"
 
 		info->infoVersion =	PluginInfo::kInfoVersion;
 		info->name =		"Fuz Ro D'oh";
-		info->version =		2;
+		info->version =		PACKED_SME_VERSION;
 
 		g_pluginHandle = skse->GetPluginHandle();
 
 		if(skse->isEditor)
 			return false;
-		else if(skse->runtimeVersion != RUNTIME_VERSION_1_5_26_0)
+		else if(skse->runtimeVersion != RUNTIME_VERSION_1_6_89_0)
 		{
 			_MESSAGE("Unsupported runtime version %08X", skse->runtimeVersion);
 			return false;
@@ -26,6 +27,9 @@ extern "C"
 
 	bool SKSEPlugin_Load(const SKSEInterface * skse)
 	{
+		_MESSAGE("Initializing INI Manager");
+		g_INIManager->Initialize("Data\\SKSE\\Plugins\\Fuz Ro D'oh.ini", NULL);
+
 		BollocksBollocksBollocks();
 
 		_MESSAGE("Fuz Ro D'oh Initialized!");
