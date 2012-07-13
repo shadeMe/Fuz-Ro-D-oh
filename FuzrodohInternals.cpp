@@ -153,7 +153,7 @@ _hhBegin()
 	}
 }
 
-bool __stdcall GetShouldForceSubs(NPCChatterData* ChatterData, bool ForceRegardless)
+bool __stdcall GetShouldForceSubs(NPCChatterData* ChatterData, UInt32 ForceRegardless)
 {
 	bool Result = false;
 
@@ -224,7 +224,7 @@ _hhBegin()
 	{
 		pushad
 		mov		eax, [_hhGetVar(INISetting)]
-		cmp		byte ptr [eax], 0
+		cmp		byte ptr [eax + 0x4], 0
 		jz		DIALOGSUBSOFF
 	FORCESUBS:
 		popad
@@ -250,7 +250,7 @@ _hhBegin()
 	{
 		pushad
 		mov		eax, [_hhGetVar(INISetting)]
-		cmp		byte ptr [eax], 0
+		cmp		byte ptr [eax + 0x4], 0
 		jz		SUBSOFF
 	FORCESUBS:
 		popad
@@ -276,7 +276,7 @@ _hhBegin()
 	{
 		pushad
 		mov		eax, [_hhGetVar(INISetting)]
-		cmp		byte ptr [eax], 0
+		cmp		byte ptr [eax + 0x4], 0
 		jz		GENERALSUBSOFF
 	FORCESUBS:
 		popad
