@@ -42,6 +42,9 @@
     <ClCompile Include="..\[Libraries]\SME Sundries\StringHelpers.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="..\SKSE\skse\GameEvents.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SKSE">
@@ -108,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="..\[Libraries]\SME Sundries\StringHelpers.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SKSE\skse\GameEvents.h">
+      <Filter>SKSE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

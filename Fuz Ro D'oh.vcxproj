@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SKSE\skse\GameAPI.cpp" />
+    <ClCompile Include="..\SKSE\skse\GameEvents.cpp" />
     <ClCompile Include="..\SKSE\skse\GameFormComponents.cpp" />
     <ClCompile Include="..\SKSE\skse\GameForms.cpp" />
     <ClCompile Include="..\SKSE\skse\GameObjects.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SKSE\skse\GameAPI.h" />
+    <ClInclude Include="..\SKSE\skse\GameEvents.h" />
     <ClInclude Include="..\SKSE\skse\GameFormComponents.h" />
     <ClInclude Include="..\SKSE\skse\GameForms.h" />
     <ClInclude Include="..\SKSE\skse\GameObjects.h" />

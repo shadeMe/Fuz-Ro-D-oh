@@ -7,6 +7,7 @@
 #include "skse/GameForms.h"
 #include "skse/GameObjects.h"
 #include "skse/GameReferences.h"
+#include "skse/GameEvents.h"
 
 #include "[Libraries]\SME Sundries\SME_Prefix.h"
 #include "[Libraries]\SME Sundries\MemoryHandler.h"
