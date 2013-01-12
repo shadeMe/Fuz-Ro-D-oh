@@ -28,7 +28,7 @@ extern "C"
 	bool SKSEPlugin_Load(const SKSEInterface * skse)
 	{
 		_MESSAGE("Initializing INI Manager");
-		g_INIManager->Initialize("Data\\SKSE\\Plugins\\Fuz Ro D'oh.ini", NULL);
+		FuzRoDohINIManager::Instance.Initialize("Data\\SKSE\\Plugins\\Fuz Ro D'oh.ini", NULL);
 
 		BollocksBollocksBollocks();
 

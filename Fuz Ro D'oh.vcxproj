@@ -155,6 +155,7 @@
     <ClCompile Include="..\SKSE\skse\Utilities.cpp" />
     <ClCompile Include="..\[Libraries]\SME Sundries\INIManager.cpp" />
     <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp" />
+    <ClCompile Include="..\[Libraries]\SME Sundries\MiscGunk.cpp" />
     <ClCompile Include="..\[Libraries]\SME Sundries\StringHelpers.cpp" />
     <ClCompile Include="FuzrodohInternals.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="..\SKSE\skse\Utilities.h" />
     <ClInclude Include="..\[Libraries]\SME Sundries\INIManager.h" />
     <ClInclude Include="..\[Libraries]\SME Sundries\MemoryHandler.h" />
+    <ClInclude Include="..\[Libraries]\SME Sundries\MiscGunk.h" />
     <ClInclude Include="..\[Libraries]\SME Sundries\SME_Prefix.h" />
     <ClInclude Include="..\[Libraries]\SME Sundries\StringHelpers.h" />
     <ClInclude Include="FuzrodohInternals.h" />

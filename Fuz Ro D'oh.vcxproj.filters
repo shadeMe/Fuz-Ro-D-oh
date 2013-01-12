@@ -45,6 +45,9 @@
     <ClCompile Include="..\SKSE\skse\GameEvents.cpp">
       <Filter>SKSE</Filter>
     </ClCompile>
+    <ClCompile Include="..\[Libraries]\SME Sundries\MiscGunk.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SKSE">
@@ -114,6 +117,9 @@
     </ClInclude>
     <ClInclude Include="..\SKSE\skse\GameEvents.h">
       <Filter>SKSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\[Libraries]\SME Sundries\MiscGunk.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

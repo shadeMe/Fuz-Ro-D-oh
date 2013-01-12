@@ -13,19 +13,46 @@
 #include "[Libraries]\SME Sundries\MemoryHandler.h"
 #include "[Libraries]\SME Sundries\INIManager.h"
 #include "[Libraries]\SME Sundries\StringHelpers.h"
+#include "[Libraries]\SME Sundries\MiscGunk.h"
 
 using namespace SME;
 using namespace SME::MemoryHandler;
 
-extern IDebugLog		gLog;
-extern PluginHandle		g_pluginHandle;
+extern IDebugLog						gLog;
+extern PluginHandle						g_pluginHandle;
 
-extern SME::INI::INIManager*						g_INIManager;
+extern SME::INI::INISetting				kWordsPerSecondSilence;
 
 class FuzRoDohINIManager : public INI::INIManager
 {
 public:
 	void								Initialize(const char* INIPath, void* Paramenter);
+
+	static FuzRoDohINIManager			Instance;
+};
+
+class SubtitleHasher
+{
+	static const double					kPurgeInterval;		// in ms
+
+	typedef unsigned long				HashT;
+	typedef std::list<HashT>			HashListT;
+
+	HashListT							Store;
+	SME::MiscGunk::ElapsedTimeCounter	TickCounter;
+	double								TickReminder;
+
+	static HashT						CalculateHash(const char* String);
+
+	void								Purge(void);
+public:
+	SubtitleHasher() : Store(), TickCounter(), TickReminder(kPurgeInterval) {}
+
+	void								Add(const char* Subtitle);
+	bool								HasMatch(const char* Subtitle);
+	void								Tick(void);
+
+	static SubtitleHasher				Instance;
 };
 
 #pragma region Deprecated
@@ -75,7 +102,7 @@ public:
 		/*04*/ UInt8				unk04;
 		/*05*/ UInt8				pad04[3];
 		/*08*/ StringCache::Ref		locationPath;
-		/*0C*/ UInt32				unk0C;		// flags, init to 0x10000 or 0x200
+		/*0C*/ UInt32				unk0C;		// probably flags, init to 0x10000 or 0x200
 		/*10*/ UInt8				unk10;
 		/*11*/ UInt8				pad11[3];
 	};
@@ -244,6 +271,7 @@ _DeclareMemHdlr(ForceSubtitlesMark1, "various shenanigans to get the engine to a
 _DeclareMemHdlr(ForceSubtitlesMark2, "");
 _DeclareMemHdlr(ForceSubtitlesMark3, "");
 _DeclareMemHdlr(ForceSubtitlesMark4, "");
+_DeclareMemHdlr(MainLoopTick, "tick tock cuckoo clock");
 
 void BollocksBollocksBollocks(void);
 

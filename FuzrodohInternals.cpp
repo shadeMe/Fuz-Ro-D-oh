@@ -3,7 +3,15 @@
 
 IDebugLog				gLog("Fuz Ro D'oh.log");
 PluginHandle			g_pluginHandle = kPluginHandle_Invalid;
-INI::INIManager*		g_INIManager = new FuzRoDohINIManager();
+
+FuzRoDohINIManager		FuzRoDohINIManager::Instance;
+SubtitleHasher			SubtitleHasher::Instance;
+const double			SubtitleHasher::kPurgeInterval = 1000.0 * 60.0f;
+
+SME::INI::INISetting	kWordsPerSecondSilence("WordsPerSecondSilence",
+											   "General", 
+											   "Number of words a second of silent voice can \"hold\"",
+											   (SInt32)2);
 
 void FuzRoDohINIManager::Initialize( const char* INIPath, void* Paramenter )
 {
@@ -22,12 +30,64 @@ void FuzRoDohINIManager::Initialize( const char* INIPath, void* Paramenter )
 	INIStream.close();
 	INIStream.clear();
 
-	RegisterSetting("WordsPerSecondSilence", "General", "2", "Number of words a second of silent voice can \"hold\"");
+	RegisterSetting(&kWordsPerSecondSilence);
 
 	if (CreateINI)
 		Save();
-	else
-		Load();
+}
+
+SubtitleHasher::HashT SubtitleHasher::CalculateHash( const char* String )
+{
+	SME_ASSERT(String);
+
+	// Uses the djb2 string hashing algorithm
+	// http://www.cse.yorku.ca/~oz/hash.html
+
+	HashT Hash = 0;
+	int i;
+
+	while (i = *String++)
+		Hash = ((Hash << 5) + Hash) + i; // Hash * 33 + i
+
+	return Hash;
+}
+
+void SubtitleHasher::Add( const char* Subtitle )
+{
+	if (Subtitle && strlen(Subtitle) > 1 && HasMatch(Subtitle) == false)
+	{
+		Store.push_back(CalculateHash(Subtitle));
+	}
+}
+
+bool SubtitleHasher::HasMatch( const char* Subtitle )
+{
+	HashT Current = CalculateHash(Subtitle);
+
+	return std::find(Store.begin(), Store.end(), Current) != Store.end();
+}
+
+void SubtitleHasher::Purge( void )
+{
+	Store.clear();
+}
+
+void SubtitleHasher::Tick( void )
+{
+	TickCounter.Update();
+	TickReminder -= TickCounter.GetTimePassed();
+
+	if (TickReminder <= 0.0f)
+	{
+		TickReminder = kPurgeInterval;
+
+#ifndef NDEBUG
+		_MESSAGE("SubtitleHasher::Tick - Tock!");
+#endif
+		// we need to periodically purge the hash store as we can't differentiate b'ween topic responses with the same dialog text but different voice assets
+		// for instance, there may be two responses with the text "Hello there!" but only one with a valid voice file
+		Purge();
+	}
 }
 
 BSIStream* BSIStream::CreateInstance( const char* FilePath, BSResource::Location* ParentLocation /*= NULL*/ )
@@ -56,6 +116,7 @@ _DefineHookHdlr(ForceSubtitlesMark1, 0x00897797);		// UIUtils::QueueDialogSubtit
 _DefineHookHdlr(ForceSubtitlesMark2, 0x0089246B);		// ActorSoundCallbackManager::DisplayQueuedNPCChatterData (Dialog Subs)
 _DefineHookHdlr(ForceSubtitlesMark3, 0x00892581);		// ActorSoundCallbackManager::QueueNPCChatterData
 _DefineHookHdlr(ForceSubtitlesMark4, 0x0089237D);		// ActorSoundCallbackManager::DisplayQueuedNPCChatterData (General Subs)
+_DefineHookHdlr(MainLoopTick, 0x0069C9ED);				// Main::GameLoop
 
 void BollocksBollocksBollocks()
 {
@@ -64,6 +125,7 @@ void BollocksBollocksBollocks()
 	_MemHdlr(ForceSubtitlesMark2).WriteJump();
 	_MemHdlr(ForceSubtitlesMark3).WriteJump();
 	_MemHdlr(ForceSubtitlesMark4).WriteJump();
+	_MemHdlr(MainLoopTick).WriteJump();
 }
 
 void __stdcall SneakAtackVoicePath(char* VoicePathBuffer, CachedResponseData* Data, TESTopicInfo* TopicInfo)
@@ -97,7 +159,7 @@ void __stdcall SneakAtackVoicePath(char* VoicePathBuffer, CachedResponseData* Da
 
 	if (WAVStream->valid == 0 && FUZStream->valid == 0 && XWMStream->valid == 0)
 	{
-		static const int kWordsPerSecond = g_INIManager->GetINIInt("WordsPerSecondSilence", "General");
+		static const int kWordsPerSecond = kWordsPerSecondSilence.GetData().i;
 		static const int kMaxSeconds = 10;
 
 		int SecondsOfSilence = 2;
@@ -117,13 +179,16 @@ void __stdcall SneakAtackVoicePath(char* VoicePathBuffer, CachedResponseData* Da
 			if (SecondsOfSilence <= 0)
 				SecondsOfSilence = 2;
 			else if (SecondsOfSilence > kMaxSeconds)
-				SecondsOfSilence = kMaxSeconds;
-		}
+				SecondsOfSilence = kMaxSeconds;		
+
+			// calculate the response text's hash and stash it for later lookups
+			SubtitleHasher::Instance.Add(Data->responseText.Get());
+		}	
 
 		FORMAT_STR(ShimAssetFilePath, "Data\\Sound\\Voice\\Fuz Ro Doh\\Stock_%d.xwm", SecondsOfSilence);
-		memcpy(VoicePathBuffer, ShimAssetFilePath, strlen(ShimAssetFilePath) + 1);
+		memcpy(VoicePathBuffer, ShimAssetFilePath, strlen(ShimAssetFilePath) + 1);		
 
-#if 0
+#ifndef NDEBUG
 		_MESSAGE("Missing Asset - Switching to '%s'", ShimAssetFilePath);
 #endif
 	}
@@ -153,11 +218,19 @@ _hhBegin()
 	}
 }
 
-bool __stdcall GetShouldForceSubs(NPCChatterData* ChatterData, UInt32 ForceRegardless)
+bool __stdcall GetShouldForceSubs(NPCChatterData* ChatterData, UInt32 ForceRegardless, const char* Subtitle)
 {
 	bool Result = false;
 
-	if (ForceRegardless || (ChatterData && ChatterData->forceSubtitles))
+	if (Subtitle && SubtitleHasher::Instance.HasMatch(Subtitle))		// force if the subtitle is for a voiceless response
+	{
+#ifndef NDEBUG
+		_MESSAGE("Found a match for %s - Forcing subs", Subtitle);
+#endif
+
+		Result = true;
+	}
+	else if (ForceRegardless || (ChatterData && ChatterData->forceSubtitles))
 		Result = true;
 	else
 	{
@@ -204,6 +277,10 @@ _hhBegin()
 		popad
 		jmp		[_hhGetVar(Retn)]
 	SUBSOFF:
+		popad
+		mov		eax, [esp + 0x0C]
+		pushad
+		push	eax
 		push	0
 		push	0
 		call	GetShouldForceSubs
@@ -230,6 +307,7 @@ _hhBegin()
 		popad
 		jmp		[_hhGetVar(Retn)]
 	DIALOGSUBSOFF:
+		push	[ebp + 0x4]
 		push	0
 		push	ebp
 		call	GetShouldForceSubs
@@ -256,7 +334,12 @@ _hhBegin()
 		popad
 		jmp		[_hhGetVar(Retn)]
 	SUBSOFF:
-		push	[esp + 0x30]
+		popad
+		mov		eax, [esp + 0x2C]
+		mov		edx, [esp + 0x30]
+		pushad
+		push	eax
+		push	edx
 		push	0
 		call	GetShouldForceSubs
 		test	al, al
@@ -282,6 +365,7 @@ _hhBegin()
 		popad
 		jmp		[_hhGetVar(Retn)]
 	GENERALSUBSOFF:
+		push	[ebp + 0x4]
 		push	0
 		push	ebp
 		call	GetShouldForceSubs
@@ -289,5 +373,27 @@ _hhBegin()
 		jnz		FORCESUBS
 		popad
 		jmp		[_hhGetVar(Jump)]
+	}
+}
+
+void __stdcall PerformHouseKeeping(void)
+{
+	SubtitleHasher::Instance.Tick();
+}
+
+#define _hhName	MainLoopTick
+_hhBegin()
+{
+	_hhSetVar(Retn, 0x0069C9F2);
+	_hhSetVar(Call, 0x00746F10);
+	__asm
+	{
+		call	[_hhGetVar(Call)]
+
+		pushad
+		call	PerformHouseKeeping
+		popad
+
+		jmp		[_hhGetVar(Retn)]
 	}
 }

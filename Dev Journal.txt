@@ -1,3 +1,2 @@
 To-Do
 ======
-> FIX: Subtitles are always forced when exiting the PC-NPC dialog menu
