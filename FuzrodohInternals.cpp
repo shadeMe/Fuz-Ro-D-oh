@@ -93,30 +93,30 @@ void SubtitleHasher::Tick( void )
 BSIStream* BSIStream::CreateInstance( const char* FilePath, BSResource::Location* ParentLocation /*= NULL*/ )
 {
 	void* Instance = FormHeap_Allocate(0x10);		// standard bucket
-	return thisCall<BSIStream*>(0x00B07CC0, Instance, FilePath, ParentLocation);
+	return thisCall<BSIStream*>(0x00B08630, Instance, FilePath, ParentLocation);
 }
 
 MenuTopicManager* MenuTopicManager::GetSingleton( void )
 {
-	return *((MenuTopicManager**)0x0130F7D8);
+	return *((MenuTopicManager**)0x013105D8);
 }
 
 bool MenuTopicManager::InitiateDialog( TESObjectREFR* Speaker, bool Arg2 /*= 0*/, TESTopicInfo* Topic, bool Arg4 /*= 0*/ )
 {
-	return thisCall<bool>(0x006754E0, Speaker, Arg2, Topic, Arg4);
+	return thisCall<bool>(0x006758A0, Speaker, Arg2, Topic, Arg4);
 }
 
 void UIUtils::QueueMessage( const char* Message, UInt32 Arg2 /*= 0*/, bool Arg3 /*= true*/ )
 {
-	cdeclCall<void>(0x00898E60, Message, Arg2, Arg3);
+	cdeclCall<void>(0x008997A0, Message, Arg2, Arg3);
 }
 
-_DefineHookHdlr(TESTopicInfoGetAssetPath, 0x00672E18);
-_DefineHookHdlr(ForceSubtitlesMark1, 0x00897797);		// UIUtils::QueueDialogSubtitle
-_DefineHookHdlr(ForceSubtitlesMark2, 0x0089246B);		// ActorSoundCallbackManager::DisplayQueuedNPCChatterData (Dialog Subs)
-_DefineHookHdlr(ForceSubtitlesMark3, 0x00892581);		// ActorSoundCallbackManager::QueueNPCChatterData
-_DefineHookHdlr(ForceSubtitlesMark4, 0x0089237D);		// ActorSoundCallbackManager::DisplayQueuedNPCChatterData (General Subs)
-_DefineHookHdlr(MainLoopTick, 0x0069C9ED);				// Main::GameLoop
+_DefineHookHdlr(TESTopicInfoGetAssetPath, 0x00673268);
+_DefineHookHdlr(ForceSubtitlesMark1, 0x008980F7);		// UIUtils::QueueDialogSubtitle
+_DefineHookHdlr(ForceSubtitlesMark2, 0x00892C0B);		// ActorSoundCallbackManager::DisplayQueuedNPCChatterData (Dialog Subs)
+_DefineHookHdlr(ForceSubtitlesMark3, 0x00892D21);		// ActorSoundCallbackManager::QueueNPCChatterData
+_DefineHookHdlr(ForceSubtitlesMark4, 0x00892B1D);		// ActorSoundCallbackManager::DisplayQueuedNPCChatterData (General Subs)
+_DefineHookHdlr(MainLoopTick, 0x0069CC0D);				// Main::GameLoop
 
 void BollocksBollocksBollocks()
 {
@@ -201,8 +201,8 @@ void __stdcall SneakAtackVoicePath(char* VoicePathBuffer, CachedResponseData* Da
 #define _hhName	TESTopicInfoGetAssetPath
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x00672E1D);
-	_hhSetVar(Call, 0x00A50880);	// StringCache::Ref::Set()
+	_hhSetVar(Retn, 0x0067326D);
+	_hhSetVar(Call, 0x00A51210);	// StringCache::Ref::Set()
 	__asm
 	{
 		mov		eax, [esp]
@@ -264,9 +264,9 @@ bool __stdcall GetShouldForceSubs(NPCChatterData* ChatterData, UInt32 ForceRegar
 #define _hhName	ForceSubtitlesMark1
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x008977A0);
-	_hhSetVar(Jump, 0x0089781F);
-	_hhSetVar(Call, 0x00891F70);	// INI::bDialogueSubtitles_Interface::Get()
+	_hhSetVar(Retn, 0x00898100);
+	_hhSetVar(Jump, 0x0089817F);
+	_hhSetVar(Call, 0x00892710);	// INI::bDialogueSubtitles_Interface::Get()
 	__asm
 	{
 		pushad
@@ -294,9 +294,9 @@ _hhBegin()
 #define _hhName	ForceSubtitlesMark2
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x00892474);
-	_hhSetVar(Jump, 0x0089249C);
-	_hhSetVar(INISetting, 0x012B3784);
+	_hhSetVar(Retn, 0x00892C12);
+	_hhSetVar(Jump, 0x00892C3C);
+	_hhSetVar(INISetting, 0x012B44C4);
 	__asm
 	{
 		pushad
@@ -321,9 +321,9 @@ _hhBegin()
 #define _hhName	ForceSubtitlesMark3
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x0089258A);
-	_hhSetVar(Jump, 0x008925E5);
-	_hhSetVar(INISetting, 0x012B3784);
+	_hhSetVar(Retn, 0x00892D2A);
+	_hhSetVar(Jump, 0x00892D85);
+	_hhSetVar(INISetting, 0x012B44C4);
 	__asm
 	{
 		pushad
@@ -352,9 +352,9 @@ _hhBegin()
 #define _hhName	ForceSubtitlesMark4
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x0089238A);
-	_hhSetVar(Jump, 0x0089246B);
-	_hhSetVar(INISetting, 0x012B3778);
+	_hhSetVar(Retn, 0x00892B2A);
+	_hhSetVar(Jump, 0x00892C0B);
+	_hhSetVar(INISetting, 0x012B44B8);
 	__asm
 	{
 		pushad
@@ -384,8 +384,8 @@ void __stdcall PerformHouseKeeping(void)
 #define _hhName	MainLoopTick
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x0069C9F2);
-	_hhSetVar(Call, 0x00746F10);
+	_hhSetVar(Retn, 0x0069CC12);
+	_hhSetVar(Call, 0x00746DD0);
 	__asm
 	{
 		call	[_hhGetVar(Call)]

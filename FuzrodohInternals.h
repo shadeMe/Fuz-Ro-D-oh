@@ -152,7 +152,7 @@ public:
 	/*00*/ ListNode<NodeT>				Head;
 };
 
-// final cache that gets passed to the dialog playback subsystem
+// arbitrary name, final cache that gets passed to the dialog playback subsystem
 // 24
 class CachedResponseData
 {
@@ -169,7 +169,7 @@ public:
 	/*22*/ UInt8					pad22[2];
 };
 
-// arbitrary name, used to queue subtitles for gamemode conversations (outside the standard dialog menu, NPC-NPC or NPC-PC)
+// arbitrary name, used to queue subtitles for gamemode conversations (outside the standard dialog menu; NPC-NPC or NPC-PC)
 // 14
 class NPCChatterData
 {
