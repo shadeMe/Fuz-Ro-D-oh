@@ -13,6 +13,11 @@ SME::INI::INISetting	kWordsPerSecondSilence("WordsPerSecondSilence",
 											   "Number of words a second of silent voice can \"hold\"",
 											   (SInt32)2);
 
+SME::INI::INISetting	kSkipEmptyResponses("SkipEmptyResponses",
+											"General", 
+											"Don't play back silent dialog for empty dialog responses",
+											(SInt32)1);
+
 void FuzRoDohINIManager::Initialize( const char* INIPath, void* Paramenter )
 {
 	this->INIFilePath = INIPath;
@@ -31,6 +36,7 @@ void FuzRoDohINIManager::Initialize( const char* INIPath, void* Paramenter )
 	INIStream.clear();
 
 	RegisterSetting(&kWordsPerSecondSilence);
+	RegisterSetting(&kSkipEmptyResponses);
 
 	if (CreateINI)
 		Save();
@@ -185,12 +191,14 @@ void __stdcall SneakAtackVoicePath(char* VoicePathBuffer, CachedResponseData* Da
 			SubtitleHasher::Instance.Add(Data->responseText.Get());
 		}	
 
-		FORMAT_STR(ShimAssetFilePath, "Data\\Sound\\Voice\\Fuz Ro Doh\\Stock_%d.xwm", SecondsOfSilence);
-		memcpy(VoicePathBuffer, ShimAssetFilePath, strlen(ShimAssetFilePath) + 1);		
-
+		if (ResponseText.length() > 1 || (ResponseText.length() == 1 && ResponseText[0] == ' ' && kSkipEmptyResponses.GetData().i == 0))
+		{
+			FORMAT_STR(ShimAssetFilePath, "Data\\Sound\\Voice\\Fuz Ro Doh\\Stock_%d.xwm", SecondsOfSilence);
+			memcpy(VoicePathBuffer, ShimAssetFilePath, strlen(ShimAssetFilePath) + 1);		
 #ifndef NDEBUG
 		_MESSAGE("Missing Asset - Switching to '%s'", ShimAssetFilePath);
 #endif
+		}
 	}
 
 	WAVStream->ReleaseInstance();

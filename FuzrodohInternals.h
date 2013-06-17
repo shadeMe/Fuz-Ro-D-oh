@@ -22,6 +22,7 @@ extern IDebugLog						gLog;
 extern PluginHandle						g_pluginHandle;
 
 extern SME::INI::INISetting				kWordsPerSecondSilence;
+extern SME::INI::INISetting				kSkipEmptyResponses;
 
 class FuzRoDohINIManager : public INI::INIManager
 {
