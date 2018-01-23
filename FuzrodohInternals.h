@@ -9,11 +9,11 @@
 #include "skse/GameReferences.h"
 #include "skse/GameEvents.h"
 
-#include "[Libraries]\SME Sundries\SME_Prefix.h"
-#include "[Libraries]\SME Sundries\MemoryHandler.h"
-#include "[Libraries]\SME Sundries\INIManager.h"
-#include "[Libraries]\SME Sundries\StringHelpers.h"
-#include "[Libraries]\SME Sundries\MiscGunk.h"
+#include "SME_Prefix.h"
+#include "MemoryHandler.h"
+#include "INIManager.h"
+#include "StringHelpers.h"
+#include "MiscGunk.h"
 
 using namespace SME;
 using namespace SME::MemoryHandler;

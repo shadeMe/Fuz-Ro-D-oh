@@ -16,9 +16,6 @@
     <ClCompile Include="..\SKSE\skse\GamePathing.cpp">
       <Filter>SKSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\SKSE\skse\GameReferences.cpp">
-      <Filter>SKSE</Filter>
-    </ClCompile>
     <ClCompile Include="..\SKSE\skse\GameRTTI.cpp">
       <Filter>SKSE</Filter>
     </ClCompile>
@@ -31,22 +28,10 @@
     <ClCompile Include="..\SKSE\skse\Utilities.cpp">
       <Filter>SKSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="FuzrodohInternals.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="..\[Libraries]\SME Sundries\INIManager.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\[Libraries]\SME Sundries\StringHelpers.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="..\SKSE\skse\GameEvents.cpp">
       <Filter>SKSE</Filter>
-    </ClCompile>
-    <ClCompile Include="..\[Libraries]\SME Sundries\MiscGunk.cpp">
-      <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="..\SKSE\skse\NiNodes.cpp">
       <Filter>SKSE</Filter>
@@ -61,9 +46,6 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{f9464900-c789-40fd-aa40-e7d854d1a3be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utilities">
-      <UniqueIdentifier>{ade7d034-c428-481f-a6be-8b921c8d8fda}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,27 +87,12 @@
     <ClInclude Include="..\SKSE\skse\Utilities.h">
       <Filter>SKSE</Filter>
     </ClInclude>
-    <ClInclude Include="..\[Libraries]\SME Sundries\MemoryHandler.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\[Libraries]\SME Sundries\SME_Prefix.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="FuzrodohInternals.h" />
     <ClInclude Include="VersionInfo.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\[Libraries]\SME Sundries\INIManager.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\[Libraries]\SME Sundries\StringHelpers.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="..\SKSE\skse\GameEvents.h">
       <Filter>SKSE</Filter>
-    </ClInclude>
-    <ClInclude Include="..\[Libraries]\SME Sundries\MiscGunk.h">
-      <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="..\SKSE\skse\NiNodes.h">
       <Filter>SKSE</Filter>

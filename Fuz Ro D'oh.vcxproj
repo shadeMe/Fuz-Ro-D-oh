@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -28,10 +28,12 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -57,8 +59,8 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\;..\skse;$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\;..\skse;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\;..\skse;$(SMESundriesIncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\;..\skse;$(SMESundriesIncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -149,16 +151,11 @@
     <ClCompile Include="..\SKSE\skse\GameForms.cpp" />
     <ClCompile Include="..\SKSE\skse\GameObjects.cpp" />
     <ClCompile Include="..\SKSE\skse\GamePathing.cpp" />
-    <ClCompile Include="..\SKSE\skse\GameReferences.cpp" />
     <ClCompile Include="..\SKSE\skse\GameRTTI.cpp" />
     <ClCompile Include="..\SKSE\skse\GameSettings.cpp" />
     <ClCompile Include="..\SKSE\skse\GameTypes.cpp" />
     <ClCompile Include="..\SKSE\skse\NiNodes.cpp" />
     <ClCompile Include="..\SKSE\skse\Utilities.cpp" />
-    <ClCompile Include="..\[Libraries]\SME Sundries\INIManager.cpp" />
-    <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp" />
-    <ClCompile Include="..\[Libraries]\SME Sundries\MiscGunk.cpp" />
-    <ClCompile Include="..\[Libraries]\SME Sundries\StringHelpers.cpp" />
     <ClCompile Include="FuzrodohInternals.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
@@ -176,11 +173,6 @@
     <ClInclude Include="..\SKSE\skse\NiNodes.h" />
     <ClInclude Include="..\SKSE\skse\PluginAPI.h" />
     <ClInclude Include="..\SKSE\skse\Utilities.h" />
-    <ClInclude Include="..\[Libraries]\SME Sundries\INIManager.h" />
-    <ClInclude Include="..\[Libraries]\SME Sundries\MemoryHandler.h" />
-    <ClInclude Include="..\[Libraries]\SME Sundries\MiscGunk.h" />
-    <ClInclude Include="..\[Libraries]\SME Sundries\SME_Prefix.h" />
-    <ClInclude Include="..\[Libraries]\SME Sundries\StringHelpers.h" />
     <ClInclude Include="FuzrodohInternals.h" />
     <ClInclude Include="VersionInfo.h" />
   </ItemGroup>
