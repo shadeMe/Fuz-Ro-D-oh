@@ -165,6 +165,7 @@ public:
 	/*10*/ StringCache::Ref			voiceFilePath;		// relative path to the voice file
 	/*14*/ UInt32					unk14;				// speaker idle anim?
 	/*18*/ UInt32					unk18;				// listener idle anim?
+	/*1C*/ UInt32					unk1C;
 	/*20*/ UInt8					useEmotionAnim;
 	/*21*/ UInt8					hasLipFile;
 	/*22*/ UInt8					pad22[2];

@@ -9,12 +9,12 @@ SubtitleHasher			SubtitleHasher::Instance;
 const double			SubtitleHasher::kPurgeInterval = 1000.0 * 60.0f;
 
 SME::INI::INISetting	kWordsPerSecondSilence("WordsPerSecondSilence",
-											   "General", 
+											   "General",
 											   "Number of words a second of silent voice can \"hold\"",
 											   (SInt32)2);
 
 SME::INI::INISetting	kSkipEmptyResponses("SkipEmptyResponses",
-											"General", 
+											"General",
 											"Don't play back silent dialog for empty dialog responses",
 											(SInt32)1);
 
@@ -185,16 +185,16 @@ void __stdcall SneakAtackVoicePath(char* VoicePathBuffer, CachedResponseData* Da
 			if (SecondsOfSilence <= 0)
 				SecondsOfSilence = 2;
 			else if (SecondsOfSilence > kMaxSeconds)
-				SecondsOfSilence = kMaxSeconds;		
+				SecondsOfSilence = kMaxSeconds;
 
 			// calculate the response text's hash and stash it for later lookups
 			SubtitleHasher::Instance.Add(Data->responseText.Get());
-		}	
+		}
 
 		if (ResponseText.length() > 1 || (ResponseText.length() == 1 && ResponseText[0] == ' ' && kSkipEmptyResponses.GetData().i == 0))
 		{
 			FORMAT_STR(ShimAssetFilePath, "Data\\Sound\\Voice\\Fuz Ro Doh\\Stock_%d.xwm", SecondsOfSilence);
-			memcpy(VoicePathBuffer, ShimAssetFilePath, strlen(ShimAssetFilePath) + 1);		
+			memcpy(VoicePathBuffer, ShimAssetFilePath, strlen(ShimAssetFilePath) + 1);
 #ifndef NDEBUG
 		_MESSAGE("Missing Asset - Switching to '%s'", ShimAssetFilePath);
 #endif
